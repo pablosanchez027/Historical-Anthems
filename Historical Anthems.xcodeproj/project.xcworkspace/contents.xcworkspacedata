@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Historical-Anthems.xcodeproj">
+      location = "self:/Users/ulsa/Desktop/Historical-Anthems/Historical-Anthems.xcodeproj">
    </FileRef>
 </Workspace>
