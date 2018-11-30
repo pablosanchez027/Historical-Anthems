@@ -124,7 +124,7 @@ class AnthemsTableViewController: UIViewController, UITableViewDataSource, UITab
                                         
                                         //Language Search
                                         self.urlLanguageIDAPI = "\(self.urlPostIDAPI)" + "\(self.AnthemLanguageID)"  + "&post_type=language"
-                                        var requestMID = Alamofire.request(self.urlLanguageIDAPI).responseJSON {
+                                        Alamofire.request(self.urlLanguageIDAPI).responseJSON {
                                             response in
                                             if let dictionaryLanguage = response.result.value as? NSDictionary {
                                                 if let dictionaryPosts = dictionaryLanguage.value(forKey: "post") as? NSDictionary {
