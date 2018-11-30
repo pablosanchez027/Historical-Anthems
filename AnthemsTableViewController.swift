@@ -45,11 +45,13 @@ class AnthemsTableViewController: UIViewController, UITableViewDataSource, UITab
             response in
             
             if let diccionarioRespuestaAnthems = response.result.value as? NSDictionary {
-                self.countAnthemsAPI = (diccionarioRespuestaAnthems.value(forKey: "count") as? Int)!
+                if let countAPI = diccionarioRespuestaAnthems.value(forKey: "count_total") as? Int {
+                    self.countAnthemsAPI = countAPI
+                }
             }
         }
         
-        urlAnthemsAPICount = "\(urlAnthemsAPI)" + "&count=" + String("\(countAnthemsAPI)")
+        urlAnthemsAPICount = "\(urlAnthemsAPI)" + "&count_total=" + String("\(countAnthemsAPI)")
         
         Alamofire.request(urlAnthemsAPICount).responseJSON {
         response in
@@ -66,26 +68,37 @@ class AnthemsTableViewController: UIViewController, UITableViewDataSource, UITab
                             
                             //Map search
                             if let attachementsArray = elementAnthem.value(forKey: "attachements") as? NSArray {
-                                if let attachementElementDictionary = attachementsArray.value(forKey: "0") as? NSDictionary {
-                                    self.imageURL = (attachementElementDictionary.value(forKey: "url") as? String)!
+                                
+                                for attachementIndex in attachementsArray {
+                                    if let attachementElementDictionary = attachementIndex as? NSDictionary {
+                                        self.imageURL = (attachementElementDictionary.value(forKey: "url") as? String)!
+                                    }
                                 }
+                                
                             }
                             
                             //Inside Custom Fields
                             if let dictionaryCustomFields = elementAnthem.value(forKey: "custom_fields") as? NSDictionary {
                                 //Country Array for country ID
                                 if let countryArray = dictionaryCustomFields.value(forKey: "country") as? NSArray {
-                                    self.AnthemCountryID = (countryArray.value(forKey: "0") as? String)!
+
+                                    for countryIndex in countryArray {
+                                        if let countryElement = countryIndex as? String {
+                                            self.AnthemCountryID = countryElement
+                                        }
+                                        
+                                    }
+                                    
                                 }
                                 
                                 //Country Search
                                 Alamofire.request(self.urlCountryAPI).responseJSON {
                                     response in
                                     if let diccionarioRespuestaCountry = response.result.value as? NSDictionary {
-                                        self.countCountryAPI = (diccionarioRespuestaCountry.value(forKey: "count") as? Int)!
+                                        self.countCountryAPI = (diccionarioRespuestaCountry.value(forKey: "count_total") as? Int)!
                                     }
                                 }
-                                self.urlCountryAPICount = "\(self.urlCountryAPI)" + "&count=" + String("\(self.countCountryAPI)")
+                                self.urlCountryAPICount = "\(self.urlCountryAPI)" + "&count_total=" + String("\(self.countCountryAPI)")
                                 
                                 Alamofire.request(self.urlCountryAPICount).responseJSON {
                                     response in
@@ -107,21 +120,33 @@ class AnthemsTableViewController: UIViewController, UITableViewDataSource, UITab
                                 
                                 //Year Array for Year
                                 if let yearArray = dictionaryCustomFields.value(forKey: "year") as? NSArray {
-                                    self.Year = (yearArray.value(forKey: "0") as? String)!
+        
+                                    for yearIndex in yearArray {
+                                        if let yearElement = yearIndex as? String {
+                                            self.Year = yearElement
+                                        }
+                                    }
+                                    
                                 }
                                 //Language Array for language ID
                                 if let languageArray = dictionaryCustomFields.value(forKey: "language") as? NSArray {
-                                    self.AnthemLanguageID = (languageArray.value(forKey: "0") as? String)!
+                                    
+                                    for languageIndex in languageArray {
+                                        if let languageElement = languageIndex as? String {
+                                            self.AnthemLanguageID = languageElement
+                                        }
+                                    }
+                
                                 }
                                 
                                 //Language Search
                                 Alamofire.request(self.urlLanguageAPI).responseJSON {
                                     response in
                                     if let diccionarioRespuestaLanguage = response.result.value as? NSDictionary {
-                                        self.countLanguageAPI = (diccionarioRespuestaLanguage.value(forKey: "count") as? Int)!
+                                        self.countLanguageAPI = (diccionarioRespuestaLanguage.value(forKey: "count_total") as? Int)!
                                     }
                                 }
-                                self.urlLanguageAPICount = "\(self.urlLanguageAPI)" + "&count=" + String("\(self.countLanguageAPI)")
+                                self.urlLanguageAPICount = "\(self.urlLanguageAPI)" + "&count_total=" + String("\(self.countLanguageAPI)")
                                 
                                 Alamofire.request(self.urlLanguageAPICount).responseJSON {
                                     response in
@@ -143,11 +168,23 @@ class AnthemsTableViewController: UIViewController, UITableViewDataSource, UITab
                                 
                                 //Info Array for Info
                                 if let infoArray = dictionaryCustomFields.value(forKey: "info") as? NSArray {
-                                    self.Info = (infoArray.value(forKey: "0") as? String)!
+                                    
+                                    for infoIndex in infoArray {
+                                        if let infoElement = infoIndex as? String {
+                                            self.Info = infoElement
+                                        }
+                                    }
+                                    
                                 }
                                 //Embed Array for Embed
                                 if let embedArray = dictionaryCustomFields.value(forKey: "url_webkit_embed") as? NSArray {
-                                    self.Embed = (embedArray.value(forKey: "0") as? String)!
+                                    
+                                    for embedIndex in embedArray {
+                                        if let embedElement = embedIndex as? String {
+                                            self.Embed = embedElement
+                                        }
+                                    }
+                                    
                                 }
                                 //End Custom Fields
                             }
