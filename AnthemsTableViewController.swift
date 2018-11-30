@@ -12,17 +12,15 @@ import UIKit
 
 class AnthemsTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    
+    
     var urlAnthemsAPI: String = "https://historical-anthems.azurewebsites.net/?json=get_posts&post_type=anthems"
     var countAnthemsAPI: Int = 0
     var urlAnthemsAPICount: String = ""
     
-    var urlCountryAPI: String = "https://historical-anthems.azurewebsites.net/?json=get_posts&post_type=country"
-    var countCountryAPI: Int = 0
-    var urlCountryAPICount: String = ""
-    
-    var urlLanguageAPI: String = "https://historical-anthems.azurewebsites.net/?json=get_posts&post_type=language"
-    var countLanguageAPI: Int = 0
-    var urlLanguageAPICount: String = ""
+    var urlPostIDAPI: String = "https://historical-anthems.azurewebsites.net/api/get_post/?post_id="
+    var urlCountryIDAPI: String = ""
+    var urlLanguageIDAPI: String = ""
     
     var Name: String = ""
     var Country: String = ""
@@ -35,12 +33,12 @@ class AnthemsTableViewController: UIViewController, UITableViewDataSource, UITab
     var AnthemCountryID: String = ""
     var AnthemLanguageID: String = ""
     
-    var imageURL: String = ""
-    
     override func viewDidLoad() {
+        self.title = "Anthems"
         super.viewDidLoad()
         aiIndicator.startAnimating()
         
+
         Alamofire.request(urlAnthemsAPI).responseJSON {
             response in
             
@@ -49,157 +47,129 @@ class AnthemsTableViewController: UIViewController, UITableViewDataSource, UITab
                     self.countAnthemsAPI = countAPI
                 }
             }
-        }
-        
-        urlAnthemsAPICount = "\(urlAnthemsAPI)" + "&count_total=" + String("\(countAnthemsAPI)")
-        
-        Alamofire.request(urlAnthemsAPICount).responseJSON {
-        response in
-        DatosAnthems.AnthemsList.removeAll()
             
-        var anthem: Anthem
+            self.urlAnthemsAPICount = "\(self.urlAnthemsAPI)" + "&count=" + String("\(self.countAnthemsAPI)")
             
-            if let dictionaryAnthems = response.result.value as? NSDictionary {
-                if let arrayAnthems = dictionaryAnthems.value(forKey: "posts") as? NSArray {
-                    for indexAnthems in arrayAnthems {
-                        //Inside Anthem Posts
-                        if let elementAnthem = indexAnthems as? NSDictionary {
-                            self.Name = (elementAnthem.value(forKey: "title") as? String)!
-                            
-                            //Map search
-                            if let attachementsArray = elementAnthem.value(forKey: "attachements") as? NSArray {
+            Alamofire.request(self.urlAnthemsAPICount).responseJSON {
+                response in
+                //DatosAnthems.AnthemsList.removeAll()
+                
+                var anthem: Anthem
+                
+                if let dictionaryAnthems = response.result.value as? NSDictionary {
+                    if let arrayAnthems = dictionaryAnthems.value(forKey: "posts") as? NSArray {
+                        for indexAnthems in arrayAnthems {
+                            //Inside Anthem Posts
+                            if let elementAnthem = indexAnthems as? NSDictionary {
+                                self.Name = (elementAnthem.value(forKey: "title") as? String)!
                                 
-                                for attachementIndex in attachementsArray {
-                                    if let attachementElementDictionary = attachementIndex as? NSDictionary {
-                                        self.imageURL = (attachementElementDictionary.value(forKey: "url") as? String)!
+                                //Map search
+                                if let attachmentsArray = elementAnthem.value(forKey: "attachments") as? NSArray {
+                                    
+                                    for attachmentsIndex in attachmentsArray {
+                                        if let attachmentsElementDictionary = attachmentsIndex as? NSDictionary {
+                                            if let attachmentsElement = attachmentsElementDictionary.value(forKey: "url") as? String {
+                                                self.Map = attachmentsElement
+                                            }
+                                        }
                                     }
                                 }
                                 
-                            }
-                            
-                            //Inside Custom Fields
-                            if let dictionaryCustomFields = elementAnthem.value(forKey: "custom_fields") as? NSDictionary {
-                                //Country Array for country ID
-                                if let countryArray = dictionaryCustomFields.value(forKey: "country") as? NSArray {
-
-                                    for countryIndex in countryArray {
-                                        if let countryElement = countryIndex as? String {
-                                            self.AnthemCountryID = countryElement
+                                //Inside Custom Fields
+                                if let dictionaryCustomFields = elementAnthem.value(forKey: "custom_fields") as? NSDictionary {
+                                   
+                                    //Country Array for country ID
+                                    if let countryArray = dictionaryCustomFields.value(forKey: "country") as? NSArray {
+                                        
+                                        for countryIndex in countryArray {
+                                            if let countryElement = countryIndex as? String {
+                                                self.AnthemCountryID = countryElement
+                                            }
+                                            
+                                        }
+                                        
+                                        //Country Search
+                                        self.urlCountryIDAPI = "\(self.urlPostIDAPI)" + "\(self.AnthemCountryID)"  + "&post_type=country"
+                                            Alamofire.request(self.urlCountryIDAPI).responseJSON {
+                                            response in
+                                            if let dictionaryCountry = response.result.value as? NSDictionary{
+                                                if let dictionaryPosts = dictionaryCountry.value(forKey: "post") as? NSDictionary {
+                                                    if let titleCountry = dictionaryPosts.value(forKey: "title") as? String {
+                                                        self.Country = titleCountry
+                                                    }
+                                                }
+                                            }
                                         }
                                         
                                     }
                                     
-                                }
-                                
-                                //Country Search
-                                Alamofire.request(self.urlCountryAPI).responseJSON {
-                                    response in
-                                    if let diccionarioRespuestaCountry = response.result.value as? NSDictionary {
-                                        self.countCountryAPI = (diccionarioRespuestaCountry.value(forKey: "count_total") as? Int)!
+                                    //Year Array for Year
+                                    if let yearArray = dictionaryCustomFields.value(forKey: "year") as? NSArray {
+                                        
+                                        for yearIndex in yearArray {
+                                            if let yearElement = yearIndex as? String {
+                                                self.Year = yearElement
+                                            }
+                                        }
+                                        
                                     }
-                                }
-                                self.urlCountryAPICount = "\(self.urlCountryAPI)" + "&count_total=" + String("\(self.countCountryAPI)")
-                                
-                                Alamofire.request(self.urlCountryAPICount).responseJSON {
-                                    response in
-                                    if let dictionaryCountry = response.result.value as? NSDictionary{
-                                        if let arrayCountry = dictionaryCountry.value(forKey: "posts") as? NSArray {
-                                            for indexCountry in arrayCountry {
-                                                //Search fo Country ID
-                                                if let elementCountry = indexCountry as? NSDictionary {
-                                                    let countryID = elementCountry.value(forKey: "id") as? String
-                                                    
-                                                    if countryID == self.AnthemCountryID {
-                                                        self.Country = (elementCountry.value(forKey: "title") as? String)!
+                                    //Language Array for language ID
+                                    if let languageArray = dictionaryCustomFields.value(forKey: "language") as? NSArray {
+                                        
+                                        for languageIndex in languageArray {
+                                            if let languageElement = languageIndex as? String {
+                                                self.AnthemLanguageID = languageElement
+                                            }
+                                        }
+                                        
+                                        //Language Search
+                                        self.urlLanguageIDAPI = "\(self.urlPostIDAPI)" + "\(self.AnthemLanguageID)"  + "&post_type=language"
+                                        var requestMID = Alamofire.request(self.urlLanguageIDAPI).responseJSON {
+                                            response in
+                                            if let dictionaryLanguage = response.result.value as? NSDictionary {
+                                                if let dictionaryPosts = dictionaryLanguage.value(forKey: "post") as? NSDictionary {
+                                                    if let titleLanguage = dictionaryPosts.value(forKey: "title") as? String {
+                                                        self.Language = titleLanguage
                                                     }
                                                 }
                                             }
                                         }
                                     }
-                                }
-                                
-                                //Year Array for Year
-                                if let yearArray = dictionaryCustomFields.value(forKey: "year") as? NSArray {
-        
-                                    for yearIndex in yearArray {
-                                        if let yearElement = yearIndex as? String {
-                                            self.Year = yearElement
-                                        }
-                                    }
                                     
-                                }
-                                //Language Array for language ID
-                                if let languageArray = dictionaryCustomFields.value(forKey: "language") as? NSArray {
                                     
-                                    for languageIndex in languageArray {
-                                        if let languageElement = languageIndex as? String {
-                                            self.AnthemLanguageID = languageElement
-                                        }
-                                    }
-                
-                                }
-                                
-                                //Language Search
-                                Alamofire.request(self.urlLanguageAPI).responseJSON {
-                                    response in
-                                    if let diccionarioRespuestaLanguage = response.result.value as? NSDictionary {
-                                        self.countLanguageAPI = (diccionarioRespuestaLanguage.value(forKey: "count_total") as? Int)!
-                                    }
-                                }
-                                self.urlLanguageAPICount = "\(self.urlLanguageAPI)" + "&count_total=" + String("\(self.countLanguageAPI)")
-                                
-                                Alamofire.request(self.urlLanguageAPICount).responseJSON {
-                                    response in
-                                    if let dictionaryLanguage = response.result.value as? NSDictionary{
-                                        if let arrayLanguage = dictionaryLanguage.value(forKey: "posts") as? NSArray {
-                                            for indexLanguage in arrayLanguage {
-                                                //Search fo Language ID
-                                                if let elementLanguage = indexLanguage as? NSDictionary {
-                                                    let languageID = elementLanguage.value(forKey: "id") as? String
-                                                    
-                                                    if languageID == self.AnthemLanguageID {
-                                                        self.Language = (elementLanguage.value(forKey: "title") as? String)!
-                                                    }
-                                                }
+                                    //Info Array for Info
+                                    if let infoArray = dictionaryCustomFields.value(forKey: "info") as? NSArray {
+                                        
+                                        for infoIndex in infoArray {
+                                            if let infoElement = infoIndex as? String {
+                                                self.Info = infoElement
                                             }
                                         }
                                     }
+                                    //Embed Array for Embed
+                                    if let embedArray = dictionaryCustomFields.value(forKey: "url_webkit_embed") as? NSArray {
+                                        
+                                        for embedIndex in embedArray {
+                                            if let embedElement = embedIndex as? String {
+                                                self.Embed = embedElement
+                                            }
+                                        }
+                                    }
+                                    //End Custom Fields
                                 }
+                                anthem = Anthem(anthemName: self.Name, anthemCountry: self.Country, anthemYear: self.Year, anthemLanguage: self.Language, anthemInfo: self.Info, anthemMap: self.Map, anthemEmbed: self.Embed)
                                 
-                                //Info Array for Info
-                                if let infoArray = dictionaryCustomFields.value(forKey: "info") as? NSArray {
-                                    
-                                    for infoIndex in infoArray {
-                                        if let infoElement = infoIndex as? String {
-                                            self.Info = infoElement
-                                        }
-                                    }
-                                    
-                                }
-                                //Embed Array for Embed
-                                if let embedArray = dictionaryCustomFields.value(forKey: "url_webkit_embed") as? NSArray {
-                                    
-                                    for embedIndex in embedArray {
-                                        if let embedElement = embedIndex as? String {
-                                            self.Embed = embedElement
-                                        }
-                                    }
-                                    
-                                }
-                                //End Custom Fields
+                                DatosAnthems.AnthemsList.append(anthem)
+                                self.tbAnthems.reloadData()
+                                self.aiIndicator.stopAnimating()
+                                //End Anthem Posts
                             }
-                            anthem = Anthem(anthemName: self.Name, anthemCountry: self.Country, anthemYear: self.Year, anthemLanguage: self.Language, anthemInfo: self.Info, anthemMap: self.Map, anthemEmbed: self.Embed)
                             
-                            DatosAnthems.AnthemsList.append(anthem)
-                            self.tbAnthems.reloadData()
-                            self.aiIndicator.stopAnimating()
-                            //End Anthem Posts
                         }
-                        
                     }
                 }
             }
-    }
+        }
     }
     
     @IBOutlet weak var tbAnthems: UITableView!
@@ -220,6 +190,14 @@ class AnthemsTableViewController: UIViewController, UITableViewDataSource, UITab
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToDetail" {
+            let destiny = segue.destination as? AnthemsDetailViewController
+            
+            destiny?.anthem = DatosAnthems.AnthemsList[(tbAnthems.indexPathForSelectedRow?.row)!]
+        }
+    }
+    
 }
 

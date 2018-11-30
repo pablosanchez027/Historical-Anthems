@@ -17,7 +17,9 @@
 		3D03884F21AF2BE200D7D9BA /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D03884121AF2B2200D7D9BA /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3D03886F21AF338E00D7D9BA /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D03886021AF336700D7D9BA /* AlamofireImage.framework */; };
 		3D03887021AF338E00D7D9BA /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D03886021AF336700D7D9BA /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3D26AE6B21B1AE55004BDDB4 /* AnthemMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AE6A21B1AE55004BDDB4 /* AnthemMapViewController.swift */; };
 		3D7E9D2C21AF3ECC00659851 /* AnthemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7E9D2B21AF3ECC00659851 /* AnthemsTableViewController.swift */; };
+		3DACCBEB21B1744900F54E02 /* AnthemsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DACCBEA21B1744900F54E02 /* AnthemsDetailViewController.swift */; };
 		3DF7234021B0EBE60092A9B6 /* Anthem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7233F21B0EBE60092A9B6 /* Anthem.swift */; };
 		3DF7234221B0F2AF0092A9B6 /* DatosAnthems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7234121B0F2AF0092A9B6 /* DatosAnthems.swift */; };
 		3DF7234421B10F590092A9B6 /* AnthemsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7234321B10F590092A9B6 /* AnthemsCell.swift */; };
@@ -189,7 +191,9 @@
 		3D03882921AF2AB600D7D9BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D03883521AF2B2100D7D9BA /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		3D03885321AF336600D7D9BA /* AlamofireImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AlamofireImage.xcodeproj; path = AlamofireImage/AlamofireImage.xcodeproj; sourceTree = "<group>"; };
+		3D26AE6A21B1AE55004BDDB4 /* AnthemMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnthemMapViewController.swift; sourceTree = "<group>"; };
 		3D7E9D2B21AF3ECC00659851 /* AnthemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnthemsTableViewController.swift; sourceTree = "<group>"; };
+		3DACCBEA21B1744900F54E02 /* AnthemsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnthemsDetailViewController.swift; sourceTree = "<group>"; };
 		3DF7233F21B0EBE60092A9B6 /* Anthem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anthem.swift; sourceTree = "<group>"; };
 		3DF7234121B0F2AF0092A9B6 /* DatosAnthems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatosAnthems.swift; sourceTree = "<group>"; };
 		3DF7234321B10F590092A9B6 /* AnthemsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnthemsCell.swift; sourceTree = "<group>"; };
@@ -316,8 +320,10 @@
 		3D03887421AF35EF00D7D9BA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3DACCBEA21B1744900F54E02 /* AnthemsDetailViewController.swift */,
 				3D7E9D3D21AF427400659851 /* Celdas */,
 				3D7E9D3C21AF423800659851 /* Tables */,
+				3D26AE6A21B1AE55004BDDB4 /* AnthemMapViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -599,11 +605,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DACCBEB21B1744900F54E02 /* AnthemsDetailViewController.swift in Sources */,
 				3DF7234421B10F590092A9B6 /* AnthemsCell.swift in Sources */,
 				3DF7234221B0F2AF0092A9B6 /* DatosAnthems.swift in Sources */,
 				3D7E9D2C21AF3ECC00659851 /* AnthemsTableViewController.swift in Sources */,
 				3DF7234021B0EBE60092A9B6 /* Anthem.swift in Sources */,
 				3D03880821AF2AB400D7D9BA /* AppDelegate.swift in Sources */,
+				3D26AE6B21B1AE55004BDDB4 /* AnthemMapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
