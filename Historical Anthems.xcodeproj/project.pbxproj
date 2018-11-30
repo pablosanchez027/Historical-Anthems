@@ -18,6 +18,9 @@
 		3D03886F21AF338E00D7D9BA /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D03886021AF336700D7D9BA /* AlamofireImage.framework */; };
 		3D03887021AF338E00D7D9BA /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D03886021AF336700D7D9BA /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3D7E9D2C21AF3ECC00659851 /* AnthemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7E9D2B21AF3ECC00659851 /* AnthemsTableViewController.swift */; };
+		3DF7234021B0EBE60092A9B6 /* Anthem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7233F21B0EBE60092A9B6 /* Anthem.swift */; };
+		3DF7234221B0F2AF0092A9B6 /* DatosAnthems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7234121B0F2AF0092A9B6 /* DatosAnthems.swift */; };
+		3DF7234421B10F590092A9B6 /* AnthemsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7234321B10F590092A9B6 /* AnthemsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +190,9 @@
 		3D03883521AF2B2100D7D9BA /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		3D03885321AF336600D7D9BA /* AlamofireImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AlamofireImage.xcodeproj; path = AlamofireImage/AlamofireImage.xcodeproj; sourceTree = "<group>"; };
 		3D7E9D2B21AF3ECC00659851 /* AnthemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnthemsTableViewController.swift; sourceTree = "<group>"; };
+		3DF7233F21B0EBE60092A9B6 /* Anthem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anthem.swift; sourceTree = "<group>"; };
+		3DF7234121B0F2AF0092A9B6 /* DatosAnthems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatosAnthems.swift; sourceTree = "<group>"; };
+		3DF7234321B10F590092A9B6 /* AnthemsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnthemsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +225,7 @@
 		3D0387FB21AF2AB400D7D9BA = {
 			isa = PBXGroup;
 			children = (
+				3DF7234121B0F2AF0092A9B6 /* DatosAnthems.swift */,
 				3D03887521AF361000D7D9BA /* Views */,
 				3D03887421AF35EF00D7D9BA /* ViewControllers */,
 				3D03887321AF35DF00D7D9BA /* Models */,
@@ -301,6 +308,7 @@
 		3D03887321AF35DF00D7D9BA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3DF7233F21B0EBE60092A9B6 /* Anthem.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -334,6 +342,7 @@
 		3D7E9D3D21AF427400659851 /* Celdas */ = {
 			isa = PBXGroup;
 			children = (
+				3DF7234321B10F590092A9B6 /* AnthemsCell.swift */,
 			);
 			name = Celdas;
 			sourceTree = "<group>";
@@ -420,7 +429,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3D0387FF21AF2AB400D7D9BA /* Build configuration list for PBXProject "Historical-Anthems" */;
+			buildConfigurationList = 3D0387FF21AF2AB400D7D9BA /* Build configuration list for PBXProject "Historical Anthems" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -590,7 +599,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DF7234421B10F590092A9B6 /* AnthemsCell.swift in Sources */,
+				3DF7234221B0F2AF0092A9B6 /* DatosAnthems.swift in Sources */,
 				3D7E9D2C21AF3ECC00659851 /* AnthemsTableViewController.swift in Sources */,
+				3DF7234021B0EBE60092A9B6 /* Anthem.swift in Sources */,
 				3D03880821AF2AB400D7D9BA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -887,7 +899,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3D0387FF21AF2AB400D7D9BA /* Build configuration list for PBXProject "Historical-Anthems" */ = {
+		3D0387FF21AF2AB400D7D9BA /* Build configuration list for PBXProject "Historical Anthems" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D03882A21AF2AB600D7D9BA /* Debug */,

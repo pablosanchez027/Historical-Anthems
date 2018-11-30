@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+class DatosAnthems {
+    static var AnthemsList : [Anthem] = []
+}
